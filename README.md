@@ -165,25 +165,25 @@ python summarize.py --input "ama_satya_comments.txt"
 
 ---
 
+### ✨ Cleanup
+Remove all local llms 
+
+(Mac) `ollama list | awk '{print $1}' | xargs -I {} ollama rm {}`
+
+(Windows) `ollama list | ForEach-Object { ollama rm $_.Split(" ")[0] }`
+
+---
+
 ## 📚 Resources  
 
-📖 [Ollama Documentation](https://ollama.ai/docs)  
+📖 [Ollama Models](https://ollama.com/search)  
 🐍 [Python Basics for AI](https://docs.python.org/3/tutorial/)  
-🤖 [Introduction to Agentic AI](https://example.com/agentic-ai-guide) *(Replace with actual link)*  
+🤖 [Introduction to LLMs by Andrej Karpathy](https://www.youtube.com/playlist?list=PLAqhIrjkxbuW9U8-vZ_s_cjKPT_FqRStI) 
 
 ---
 
 ## 📩 Contact  
 
-💡 **Questions?** Open an issue in the GitHub repository or reach out via **Teams**.  
+💡 **Questions?** Open an issue in the GitHub repository or reach out via **Teams** @amigupta, @sasitara
 
-📢 **Bring your laptop, follow along, and start building with AI!** 🚀  
 
----
-
-### ✨ Improvements:  
-✅ **Better spacing** between sections  
-✅ **Cleaner layout** for quick scanning  
-✅ **Consistent formatting** for code blocks, tables & tips  
-
-This **keeps it polished, readable, and engaging.** 🚀 Let me know if you need further refinements! 😊
