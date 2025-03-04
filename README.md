@@ -1,82 +1,189 @@
-# CAP fhL 2025: Hands-On AI – Running and Building with Local LLMs
+# 🚀 CAP fhL 2025: Hands-On AI – Running and Building with Local LLMs  
 
-## Overview
-AI isn’t just for research teams—it’s for every developer. This hands-on session is designed to help developers, managers, and product owners learn how to **run multiple local LLMs, compare responses, and integrate AI into real-world applications.**
+## 🔹 Overview  
+AI isn’t just for research teams—it’s for every developer. This **hands-on session** will help **developers, managers, and product owners** learn how to:  
 
-## What You’ll Learn
-- How to set up and run **local LLMs** using [Ollama](https://ollama.ai)
-- How to compare model responses to understand their strengths and weaknesses
-- How to write scripts for **theming, summarization, and AI-aware features**
-- How to start incorporating **agentic scenarios** in your products—no prior AI expertise required
+✅ **Run multiple local LLMs**  
+✅ **Compare AI model responses**  
+✅ **Integrate AI into real-world applications**  
 
-## Prerequisites
-To get the most out of this session, please ensure you have the following installed on your laptop:
+---
 
-### **Required Software**
+## 🎯 What You’ll Learn  
 
-1. **Ollama** (Required) | [Download](https://ollama.ai/download)
-2. **Python 3.10+** (Required) | [Windows download](https://www.python.org/downloads/windows/) | [Mac download](https://www.python.org/downloads/mac-osx/)
+✔️ **Set up & run local LLMs** using [Ollama](https://ollama.ai)  
+✔️ **Compare model responses** to understand their strengths & weaknesses  
+✔️ **Write scripts** for theming, summarization, & AI-aware features  
+✔️ **Explore agentic scenarios** – no prior AI expertise required!  
 
-Install as admin and update PATH
+---
+
+## 🛠️ Prerequisites  
+
+To **get the most out of this session**, please install the following **beforehand**:  
+
+### **Required Software**  
+
+| Software | Download Link |
+|----------|--------------|
+| **Ollama** | [Download](https://ollama.ai/download) |
+| **Python 3.10+** | [Windows](https://www.python.org/downloads/windows/) \| [Mac](https://www.python.org/downloads/mac-osx/) |
+
+⚡ **Pro Tip:** Install as **admin** and update `PATH`!  
 
 <img src="https://github.com/user-attachments/assets/a44cefb7-dfde-43ff-af6b-03dd425e12a9" width="400" />
 
+---
 
+## 📂 GitHub Files  
 
-### **Clone the Session Repository**
-Run the following command to clone the repository containing example scripts:
+| Feature | Link |
+|---------|------|
+| 📜 **README.md** (this file) | [README.md](https://github.com/whizamit/llm/blob/main/README.md) |
+| 🤖 **Single LLM** | [single-llm.html](https://github.com/whizamit/llm/blob/main/single-llm.html) |
+| 🤖 **Multiple LLMs** | [multiple-llm.html](https://github.com/whizamit/llm/blob/main/multiple-llm.html) |
+| 🛡️ **Event Moderation Agent** | [README.md](https://github.com/whizamit/llm/blob/main/README.md) |
+| 📊 **Sample Data** | [README.md](https://github.com/whizamit/llm/blob/main/README.md) |
+
+---
+
+# 🏗️ Hands-On Exercises  
+
+## 🏁 **Exercise 1: Running Your First Local LLM**  
+
+🔹 **Goal:** Download and run your first model, and interact with an LLM using the command line.  
+
+### **1️⃣ Pull & Run Your First Model**  
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/ollama-learning-session.git
-cd ollama-learning-session
+ollama run llama3.2:1b
 ```
 
-## Getting Started
-1. Install dependencies:
-   ```sh
-   pip install -r requirements.txt
-   ```
-2. Pull Ollama models:
-   ```sh
-   ollama run phi
-   ollama run llama3.2:1b
-   ollama run deepseek-r1:1.5b
-   ```
-3. Create a temprary folder:
-   ```sh
-   mkdir temp
-   ```
-5. Run temporary local web server
-   ```sh
-   cd temp
-   python -m http.server 8000
-   ```
-3. Run the example summarization script:
-   ```sh
-   python summarize.py --input "sample_text.txt"
-   ```
+### **2️⃣ Interact with the Model in the Terminal**  
+💡 **Tip:** Input `/bye` to exit the chat.
 
-## Ollama Usage Guide
-Ollama provides a CLI for managing and running models. Here are some key commands:
+---
 
-| Command               | Description |
-|-----------------------|-------------|
-| `ollama help`        | Show help menu |
-| `ollama ps`          | List running models |
-| `ollama list`        | List available models |
-| `ollama run <model>` | Run a model |
-| `ollama stop <model>` | Stop a running model |
-| `ollama rm <model>`  | Remove a model |
-| `/bye` | Exit the chat |
-## Resources
+## 💬 **Exercise 2: Build a Simple Web-Based Chatbot**  
 
+🔹 **Goal:** Create a basic **web interface** to interact with an LLM.  
 
+### 📌 What You’ll Do:  
+✅ Set up a **simple HTML & JavaScript** front-end  
+✅ Connect your chatbot to **Ollama's API**  
 
-- [Ollama Documentation](https://ollama.ai/docs)
-- [Python Basics for AI](https://docs.python.org/3/tutorial/)
-- [Introduction to Agentic AI](https://example.com/agentic-ai-guide) *(Replace with actual link)*
+### **1️⃣ Create a Working Directory**  
+```sh
+mkdir llm
+cd llm
+```
 
-## Contact
-If you have any issues or questions, feel free to open an issue in the GitHub repository or reach out via Teams.
+### **2️⃣ Download the Chatbot Web Page**  
+Download **[single-llm.html](https://github.com/whizamit/llm/blob/main/single-llm.html)** into the `llm` folder.  
 
-📢 **Bring your laptop, follow along, and start building with AI!**
+### **3️⃣ Start a Temporary Web Server**  
+| OS | Command |
+|----|---------|
+| **Windows** | `python -m http.server 8000` |
+| **Mac** | `python3 -m http.server 8000` |
 
+### **4️⃣ Open in Your Browser**  
+Go to **http://localhost:8000/single-llm.html** in your web browser.  
+
+---
+
+## 🔄 **Exercise 3: Compare Multiple LLMs in a Chatbot**  
+
+🔹 **Goal:** Build a **more advanced chatbot** that compares multiple LLM responses side by side.  
+
+📌 **What You’ll Do:**  
+✅ Query multiple LLMs **at once**  
+✅ Display responses **side by side**  
+✅ Analyze **differences in model outputs**  
+
+---
+
+### **1️⃣ Understanding LLM Sizes & System Limitations**  
+
+💡 **Not all LLMs are the same size!** Some require more memory and computing power, affecting performance.  
+
+🔹 **Windows Users:**  
+- Windows laptops **lack unified memory** (which Apple Silicon uses to share RAM between CPU & GPU).  
+- Running **larger models (7B-14B)** can be **slow or impossible** due to memory limits.  
+- **Solution:** Use **smaller models (1B-3B)** that require less RAM.  
+
+🔹 **Mac Users:**  
+- Macs with **M1/M2/M3 chips** can run **larger models** due to **unified memory**.  
+- If you have a Mac with **16GB+ RAM**, you can try **larger models (7B-14B)** for better results.  
+
+---
+
+### 🧠 **Choosing the Right Model**  
+
+#### 🔹 **Smaller, Lightweight Models (Best for Windows & Low-Memory Macs)**  
+
+| Model ID | Run Command |
+|----------|------------|
+| `llama3.2:1b` | `ollama run llama3.2:1b` |
+| `phi3` | `ollama run phi3:3.8b` |
+| `gemma2:2b` | `ollama run gemma2:2b` |
+| `deepseek-r1:1.5b` | `ollama run deepseek-r1:1.5b` |
+
+#### 🔹 **Larger, More Powerful Models (Best for Macs with 16GB+ RAM)**  
+
+| Model ID | Run Command |
+|----------|------------|
+| `llama3.2:latest` | `ollama run llama3.2:latest` |
+| `phi4` | `ollama run phi4:14b` |
+| `gemma2:9b` | `ollama run gemma2:9b` |
+| `deepseek-r1` | `ollama run deepseek-r1:7b` |
+
+---
+
+### **2️⃣ Download the Multiple Chatbot Web Page**  
+Download **[multiple-llm.html](https://github.com/whizamit/llm/blob/main/multiple-llm.html)** into the `llm` folder.  
+
+### **3️⃣ Open in Your Browser**  
+Go to **http://localhost:8000/multiple-llm.html**  
+
+💡 **Tip:** Compare different models on various topics!  
+
+---
+
+## 📊 **Exercise 4: AI-Powered Thematic Analysis & Summarization**  
+
+🔹 **Goal:** Use Python to **analyze themes** and **summarize discussions** from a recent AMA with **Satya Nadella**.  
+
+📌 **What You’ll Do:**  
+✅ Extract **key topics**  
+✅ Use AI to **summarize insights**  
+✅ Apply **sentiment analysis**  
+
+**Run the script:**  
+```sh
+python summarize.py --input "ama_satya_comments.txt"
+```
+
+---
+
+## 📚 Resources  
+
+📖 [Ollama Documentation](https://ollama.ai/docs)  
+🐍 [Python Basics for AI](https://docs.python.org/3/tutorial/)  
+🤖 [Introduction to Agentic AI](https://example.com/agentic-ai-guide) *(Replace with actual link)*  
+
+---
+
+## 📩 Contact  
+
+💡 **Questions?** Open an issue in the GitHub repository or reach out via **Teams**.  
+
+📢 **Bring your laptop, follow along, and start building with AI!** 🚀  
+
+---
+
+### ✨ Improvements:  
+✅ **Better spacing** between sections  
+✅ **Cleaner layout** for quick scanning  
+✅ **Consistent formatting** for code blocks, tables & tips  
+
+This **keeps it polished, readable, and engaging.** 🚀 Let me know if you need further refinements! 😊

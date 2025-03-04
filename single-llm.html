@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single LLM Chatbot</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      text-align: center; 
+    }
+    input { 
+      padding: 10px; 
+      width: 80%; 
+      font-size: 16px; 
+      margin-bottom: 20px; 
+    }
+    #chatbox { 
+      margin: auto;
+      width: 90%;
+    }
+    .chat-container { 
+      border: 1px solid #ccc; 
+      padding: 10px; 
+      text-align: left;
+      margin: auto;
+    }
+    .chat-container h3 { 
+      margin-top: 0; 
+      text-align: center; 
+    }
+    pre { 
+      background: #f4f4f4; 
+      padding: 10px; 
+      border-radius: 5px; 
+      white-space: pre-wrap; 
+      word-wrap: break-word; 
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Title indicates the single LLM in use -->
+  <h2>Single LLM Chatbot: llama3.2:1b</h2>
+  
+  <!-- Input box for user messages -->
+  <input type="text" id="userInput" placeholder="Type a message and press Enter..." />
+
+  <!-- Container for the single response panel -->
+  <div id="chatbox">
+    <div class="chat-container">
+      <h3>Response from llama3.2:1b</h3>
+      <pre id="response">Waiting for input...</pre>
+    </div>
+  </div>
+  
+  <script>
+    // Define the single LLM (first one from the original smallerModels list)
+    const model = { id: "llama3.2:1b", displayName: "llama3.2:1b" };
+
+    // Listen for Enter key press in the input field.
+    document.getElementById("userInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+  
+    // Send the user's message to the LLM.
+    async function sendMessage() {
+      const inputField = document.getElementById("userInput");
+      const userMessage = inputField.value.trim();
+      if (userMessage === "") return;
+      
+      // Set the response area to "Loading..." while waiting for the response.
+      document.getElementById("response").innerText = "Loading...";
+      
+      // Clear the input field.
+      inputField.value = "";
+  
+      try {
+        const response = await fetchResponse(model.id, userMessage);
+        document.getElementById("response").innerText = response;
+      } catch (error) {
+        document.getElementById("response").innerText = "Error fetching response.";
+      }
+    }
+  
+    // Fetch a response from the API for the given model and prompt.
+    async function fetchResponse(modelId, prompt) {
+      const response = await fetch("http://localhost:11434/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: modelId,
+          prompt: prompt,
+          stream: false
+        })
+      });
+      
+      const data = await response.json();
+      return data.response || "No response received.";
+    }
+  </script>
+</body>
+</html>
