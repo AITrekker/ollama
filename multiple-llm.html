@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-LLM Chatbot</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      text-align: center; 
+    }
+    input { 
+      padding: 10px; 
+      width: 80%; 
+      font-size: 16px; 
+      margin-bottom: 20px; 
+    }
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #chatbox { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 20px; 
+      justify-items: center;
+    }
+    .chat-container { 
+      width: 90%; 
+      border: 1px solid #ccc; 
+      padding: 10px; 
+      text-align: left; 
+    }
+    .chat-container h3 { 
+      margin-top: 0; 
+      text-align: center; 
+    }
+    pre { 
+      background: #f4f4f4; 
+      padding: 10px; 
+      border-radius: 5px; 
+      white-space: pre-wrap; 
+      word-wrap: break-word; 
+      min-height: 100px;
+    }
+    select {
+      padding: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with title and model selection drop-down -->
+  <div id="header">
+    <h2>Multi-LLM Chatbot</h2>
+    <div>
+      <label for="modelSizeSelect">Model Size:</label>
+      <select id="modelSizeSelect">
+        <option value="smaller" selected>Smaller Models</option>
+        <option value="larger">Larger Models</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Input box for user messages -->
+  <input type="text" id="userInput" placeholder="Type a message and press Enter..." />
+
+  <!-- Container for response panels generated from the model list -->
+  <div id="chatbox"></div>
+  
+  <script>
+    // Define the two model sets.
+    const smallerModels = [
+      { id: "llama3.2:1b", displayName: "llama3.2:1b" },
+      { id: "phi3", displayName: "phi3:3.8b" },
+      { id: "gemma2:2b", displayName: "gemma2:2b" },
+      { id: "deepseek-r1:1.5b", displayName: "deepseek-r1:1.5b" }
+    ];
+    
+    const largerModels = [
+      { id: "llama3.2:latest", displayName: "llama3.2:latest" },
+      { id: "phi4", displayName: "phi4:14b" },
+      { id: "gemma2:9b", displayName: "gemma2:9b" },
+      { id: "deepseek-r1", displayName: "deepseek-r1:7b" }
+    ];
+    
+    // Set currentModels to smallerModels by default.
+    let currentModels = smallerModels;
+    
+    // Function to render the chat containers based on currentModels.
+    function renderChatContainers() {
+      const chatbox = document.getElementById("chatbox");
+      chatbox.innerHTML = ""; // Clear any existing containers.
+      currentModels.forEach((model, index) => {
+        const container = document.createElement("div");
+        container.className = "chat-container";
+        container.innerHTML = `<h3>Model ${index + 1}: ${model.displayName}</h3>
+                               <pre id="response${index}">Waiting for input...</pre>`;
+        chatbox.appendChild(container);
+      });
+    }
+    
+    // Initial render.
+    renderChatContainers();
+    
+    // Listen for changes in the drop-down to switch between model sets.
+    document.getElementById("modelSizeSelect").addEventListener("change", function(event) {
+      const value = event.target.value;
+      if (value === "larger") {
+        currentModels = largerModels;
+      } else {
+        currentModels = smallerModels;
+      }
+      renderChatContainers();
+    });
+    
+    // Listen for Enter key press in the input field.
+    document.getElementById("userInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+  
+    // Send the user's message to each model sequentially.
+    async function sendMessage() {
+      const inputField = document.getElementById("userInput");
+      const userMessage = inputField.value.trim();
+      if (userMessage === "") return;
+      
+      // Set each model's response area to "Loading..." while waiting for the response.
+      currentModels.forEach((model, index) => {
+        document.getElementById(`response${index}`).innerText = "Loading...";
+      });
+      
+      // Clear the input field after reading the message.
+      inputField.value = "";
+  
+      // Sequentially fetch and display responses for each model.
+      for (let i = 0; i < currentModels.length; i++) {
+        const model = currentModels[i];
+        try {
+          const response = await fetchResponse(model.id, userMessage);
+          document.getElementById(`response${i}`).innerText = response;
+        } catch (error) {
+          document.getElementById(`response${i}`).innerText = "Error fetching response.";
+        }
+      }
+    }
+  
+    // Fetch a response from the API for a given model and prompt.
+    async function fetchResponse(modelId, prompt) {
+      const response = await fetch("http://localhost:11434/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: modelId,
+          prompt: prompt,
+          stream: false
+        })
+      });
+      
+      const data = await response.json();
+      return data.response || "No response received.";
+    }
+  </script>
+</body>
+</html>
