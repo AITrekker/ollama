@@ -158,20 +158,15 @@ Download the following into the `llm` folder.
 | 
 [sample.csv](https://github.com/whizamit/llm/blob/main/sample.csv)
 
-### **2️⃣Run the script:**  
-```sh
-python summarize.py sample.csv
-```
+### **2️⃣ Run the script**  
+
+(Windows) `python summarize.py sample.csv`
+(Mac) `python3 summarize.py sample.csv`
+
+### **3️⃣ View the output**  
+Open the file 'output.csv' to see the summary and theme of each sample question.
 
 ---
-
-### ✨ Cleanup
-Remove all local llms 
-
-(Mac) `ollama list | awk '{print $1}' | xargs -I {} ollama rm {}`
-
-(Windows) `ollama list | ForEach-Object { ollama rm $_.Split(" ")[0] }`
-
 ---
 
 ## 📚 Resources  
@@ -180,6 +175,13 @@ Remove all local llms
 🐍 [Python Basics for AI](https://docs.python.org/3/tutorial/)  
 🤖 [Introduction to LLMs by Andrej Karpathy](https://www.youtube.com/playlist?list=PLAqhIrjkxbuW9U8-vZ_s_cjKPT_FqRStI) 
 
+
+### ✨ Cleanup
+Remove all local llms 
+
+(Windows) `ollama list | ForEach-Object { ollama rm $_.Split(" ")[0] }`
+
+(Mac) `ollama list | awk '{print $1}' | xargs -I {} ollama rm {}`
 ## 📩 Contact  
 
 💡 **Questions?** Open an issue in the GitHub repository or reach out via **Teams** @amigupta, @sasitara
