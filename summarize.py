@@ -7,6 +7,14 @@ import sys
 # ===========================
 # Configuration
 # ===========================
+# Update the LLM name here. For example, you might use one of the following:
+#
+#   Smaller Models: llama3.2:1b, phi3:3.8b, gemma2:2b, deepseek-r1:1.5b
+#   Larger Models:  llama3.2:latest, phi4:14b, gemma2:9b, deepseek-r1:7b
+#
+# For this script, we're using a single LLM. Change LLM_NAME as needed.
+LLM_NAME = "phi3:3.8b"
+
 # Modify this prompt template to change the instructions given to the LLM.
 PROMPT_TEMPLATE = """Analyze the following executive townhall question/comment.
 Provide:
@@ -39,16 +47,16 @@ def clean_response(response):
 
 def analyze_comment(comment):
     """
-    Calls the local LLM (via Ollama) to analyze the given comment.
+    Calls the local LLM (using the LLM_NAME) via Ollama to analyze the given comment.
     Returns a dictionary with 'summary' and 'theme' keys if successful.
     """
     # Format the prompt with the provided comment.
     prompt = PROMPT_TEMPLATE.format(comment=comment)
     
     try:
-        # Run the local LLM (phi4) via Ollama using the constructed prompt.
+        # Run the local LLM via Ollama using the constructed prompt.
         result = subprocess.run(
-            ["ollama", "run", "phi4", prompt],
+            ["ollama", "run", LLM_NAME, prompt],
             capture_output=True, text=True, check=True
         )
         response = result.stdout.strip()
@@ -96,7 +104,7 @@ def main():
             
             print("=== Processing Iteration ===")
             print(f"Input: {original}")
-            print(f"------")
+            
             analysis = analyze_comment(original)
             
             if analysis:
@@ -109,7 +117,7 @@ def main():
             
             # Write the original question, summary, and theme to the output CSV.
             writer.writerow([original, summary, theme])
-            #print(f"Processed: {original}\n")
+            print(f"Processed: {original}\n")
             
 if __name__ == "__main__":
     main()
