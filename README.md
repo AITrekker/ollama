@@ -35,17 +35,6 @@ To **get the most out of this session**, please install the following **beforeha
 
 ---
 
-## 📂 GitHub Files  
-
-| Feature | Link |
-|---------|------|
-| 📜 **README.md** (this file) | [README.md](https://github.com/whizamit/llm/blob/main/README.md) |
-| 🤖 **Single LLM** | [single-llm.html](https://github.com/whizamit/llm/blob/main/single-llm.html) |
-| 🤖 **Multiple LLMs** | [multiple-llm.html](https://github.com/whizamit/llm/blob/main/multiple-llm.html) |
-| 🛡️ **Event Moderation Agent** | [README.md](https://github.com/whizamit/llm/blob/main/README.md) |
-| 📊 **Sample Data** | [README.md](https://github.com/whizamit/llm/blob/main/README.md) |
-
----
 
 # 🏗️ Hands-On Exercises  
 
@@ -59,6 +48,12 @@ ollama run llama3.2:1b
 ```
 
 ### **2️⃣ Interact with the Model in the Terminal**  
+Ask a question, such as "Is hotdog a sandwich?"
+
+Be creative and ask it questions or chat with it.
+
+You now have the powers of a scaled down chatgpt running on your local computer.
+
 💡 **Tip:** Input `/bye` to exit the chat.
 
 ---
@@ -119,7 +114,7 @@ Go to **http://localhost:8000/single-llm.html** in your web browser.
 
 ### 🧠 **Choosing the Right Model**  
 
-#### 🔹 **Smaller, Lightweight Models (Best for Windows & Low-Memory Macs)**  
+#### 🔹 **Smaller, Lightweight Models (Best for Windows & Low-Memory Macs) -- Recommended**  
 
 | Model ID | Run Command |
 |----------|------------|
@@ -154,13 +149,18 @@ Go to **http://localhost:8000/multiple-llm.html**
 🔹 **Goal:** Use Python to **analyze themes** and **summarize discussions** from a recent AMA with **Satya Nadella**.  
 
 📌 **What You’ll Do:**  
-✅ Extract **key topics**  
-✅ Use AI to **summarize insights**  
-✅ Apply **sentiment analysis**  
+✅ Use AI to **extract key topics**  
+✅ Use AI to **summarize**  
 
-**Run the script:**  
+### **1️⃣ Download the Multiple Chatbot Web Page**  
+Download the following into the `llm` folder.  
+[summarize.py](https://github.com/whizamit/llm/blob/main/summarize.py)
+| 
+[sample.csv](https://github.com/whizamit/llm/blob/main/sample.csv)
+
+### **2️⃣Run the script:**  
 ```sh
-python summarize.py --input "ama_satya_comments.txt"
+python summarize.py sample.csv
 ```
 
 ---
@@ -179,8 +179,6 @@ Remove all local llms
 📖 [Ollama Models](https://ollama.com/search)  
 🐍 [Python Basics for AI](https://docs.python.org/3/tutorial/)  
 🤖 [Introduction to LLMs by Andrej Karpathy](https://www.youtube.com/playlist?list=PLAqhIrjkxbuW9U8-vZ_s_cjKPT_FqRStI) 
-
----
 
 ## 📩 Contact  
 
