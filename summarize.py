@@ -3,6 +3,8 @@ import csv
 import subprocess
 import json
 import sys
+import os
+from datetime import datetime
 
 # ===========================
 # Configuration
@@ -13,14 +15,12 @@ import sys
 #   Larger Models:  llama3.2:latest, phi4:14b, gemma2:9b, deepseek-r1:7b
 #
 # For this script, we're using a single LLM. Change LLM_NAME as needed.
-LLM_NAME = "phi3:3.8b"
+LLM_NAME = "llama3.2:1b"
 
 # Modify this prompt template to change the instructions given to the LLM.
-PROMPT_TEMPLATE = """Analyze the following executive townhall question/comment.
-Provide:
+PROMPT_TEMPLATE = """You are assistant to an executive and your role is to help with executive communications. Analyze the following executive townhall question/comment and provide the following: 
 1. Rewrite the question to make it one short sentence that can be read aloud to the CEO by the moderator during the event.
 2. Provide the theme of the comment in a maximum of 3 words for categorization.
-
 Return your answer strictly in JSON format with keys "summary" and "theme".
 
 Question/Comment: "{comment}"
@@ -84,8 +84,17 @@ def main():
     
     # Get the input CSV filename from the command-line arguments.
     input_csv = sys.argv[1]
-    output_csv = "output.csv"  # Output filename is fixed.
-
+    
+    # Create output filename with timestamp if file exists
+    base_output_name = "output.csv"
+    
+    if os.path.exists(base_output_name):
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_csv = f"output_{timestamp}.csv"
+        print(f"Output file already exists. Creating new file: {output_csv}")
+    else:
+        output_csv = base_output_name
+    
     # Open the input CSV for reading and output CSV for writing.
     with open(input_csv, mode='r', encoding='utf-8') as infile, \
          open(output_csv, mode='w', newline='', encoding='utf-8') as outfile:

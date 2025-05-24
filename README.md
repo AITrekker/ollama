@@ -1,7 +1,7 @@
 # 🚀 CAP fhL 2025: Hands-On AI – Running and Building with Local LLMs  
 
 ## 🔹 Overview  
-AI isn’t just for research teams—it’s for every developer. This **hands-on session** will help **developers, managers, and product owners** learn how to:  
+AI isn’t just for research teams—it’s for every developer. This **hands-on session** will help **everyone** learn how to:  
 
 ✅ **Run multiple local LLMs**  
 ✅ **Compare AI model responses**  
@@ -66,23 +66,21 @@ You now have the powers of a scaled down chatgpt running on your local computer.
 ✅ Set up a **simple HTML & JavaScript** front-end  
 ✅ Connect your chatbot to **Ollama's API**  
 
-### **1️⃣ Create a Working Directory**  
+### **1️⃣ Clone this repository**  
 ```sh
-mkdir llm
-cd llm
+git clone https://github.com/AITrekker/ollama.git
 ```
 
-### **2️⃣ Download the Chatbot Web Page**  
-Download **[single-llm.html](https://github.com/whizamit/llm/blob/main/single-llm.html)** into the `llm` folder.  
-
-### **3️⃣ Start a Temporary Web Server**  
+### **2️⃣ Start a Temporary Web Server**  
 | OS | Command |
 |----|---------|
 | **Windows** | `python -m http.server 8000` |
 | **Mac** | `python3 -m http.server 8000` |
 
-### **4️⃣ Open in Your Browser**  
+### **3️⃣ Open in Your Browser**  
 Go to **http://localhost:8000/single-llm.html** in your web browser.  
+
+Type your query in the search box and see the model respond.  
 
 ---
 
@@ -107,7 +105,7 @@ Go to **http://localhost:8000/single-llm.html** in your web browser.
 - **Solution:** Use **smaller models (1B-3B)** that require less RAM.  
 
 🔹 **Mac Users:**  
-- Macs with **M1/M2/M3 chips** can run **larger models** due to **unified memory**.  
+- Macs with **M1/M2/M3/M4 chips** can run **larger models** due to unified memory.  
 - If you have a Mac with **16GB+ RAM**, you can try **larger models (7B-14B)** for better results.  
 
 ---
@@ -134,8 +132,8 @@ Go to **http://localhost:8000/single-llm.html** in your web browser.
 
 ---
 
-### **2️⃣ Download the Multiple Chatbot Web Page**  
-Download **[multiple-llm.html](https://github.com/whizamit/llm/blob/main/multiple-llm.html)** into the `llm` folder.  
+### 2️⃣ Download 4 models 
+Download the 4 most appropriate models from the table above, based on the capabilites of your computer.  
 
 ### **3️⃣ Open in Your Browser**  
 Go to **http://localhost:8000/multiple-llm.html**  
@@ -146,24 +144,19 @@ Go to **http://localhost:8000/multiple-llm.html**
 
 ## 📊 **Exercise 4: AI-Powered Thematic Analysis & Summarization**  
 
-🔹 **Goal:** Use Python to **analyze themes** and **summarize discussions** from a recent AMA with **Satya Nadella**.  
+🔹 **Goal:** Use Python to **analyze themes** and **summarize discussions** from a recent AMA with a CEO.  
 
 📌 **What You’ll Do:**  
 ✅ Use AI to **extract key topics**  
 ✅ Use AI to **summarize**  
 
-### **1️⃣ Download the Multiple Chatbot Web Page**  
-Download the following into the `llm` folder.  
-[summarize.py](https://github.com/whizamit/llm/blob/main/summarize.py)
-| 
-[sample.csv](https://github.com/whizamit/llm/blob/main/sample.csv)
-
-### **2️⃣ Run the script**  
+### **1️⃣ Run the script**  
 
 (Windows) `python summarize.py sample.csv`
+
 (Mac) `python3 summarize.py sample.csv`
 
-### **3️⃣ View the output**  
+### **2️⃣ View the output**  
 Open the file 'output.csv' to see the summary and theme of each sample question.
 
 ---
@@ -173,7 +166,6 @@ Open the file 'output.csv' to see the summary and theme of each sample question.
 
 📖 [Ollama Models](https://ollama.com/search)  
 🐍 [Python Basics for AI](https://docs.python.org/3/tutorial/)  
-🤖 [Introduction to LLMs by Andrej Karpathy](https://www.youtube.com/playlist?list=PLAqhIrjkxbuW9U8-vZ_s_cjKPT_FqRStI) 
 
 
 ### ✨ Cleanup
@@ -184,6 +176,4 @@ Remove all local llms
 (Mac) `ollama list | awk '{print $1}' | xargs -I {} ollama rm {}`
 ## 📩 Contact  
 
-💡 **Questions?** Open an issue in the GitHub repository or reach out via **Teams** @amigupta, @sasitara
-
-
+💡 **Questions?** Open an issue in the GitHub repository or reach out via **LinkedIn** https://www.linkedin.com/in/agupta11/
