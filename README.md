@@ -1,179 +1,155 @@
-# 🚀 CAP fhL 2025: Hands-On AI – Running and Building with Local LLMs  
+# Hands-On AI — Running and Building with Local LLMs
 
-## 🔹 Overview  
-AI isn’t just for research teams—it’s for every developer. This **hands-on session** will help **everyone** learn how to:  
+## Overview
 
-✅ **Run multiple local LLMs**  
-✅ **Compare AI model responses**  
-✅ **Integrate AI into real-world applications**  
+AI is no longer limited to research teams — it's becoming an essential tool for every developer. This **hands-on session** introduces practical ways to:
 
----
-
-## 🎯 What You’ll Learn  
-
-✔️ **Set up & run local LLMs** using [Ollama](https://ollama.ai)  
-✔️ **Compare model responses** to understand their strengths & weaknesses  
-✔️ **Write scripts** for theming, summarization, & AI-aware features  
-✔️ **Explore agentic scenarios** – no prior AI expertise required!  
+- Run local LLMs efficiently
+- Compare model responses
+- Integrate AI into everyday applications
 
 ---
 
-## 🛠️ Prerequisites  
+## What You’ll Learn
 
-To **get the most out of this session**, please install the following **beforehand**:  
+By the end of this session, you will be able to:
 
-### **Required Software**  
-
-| Software | Download Link |
-|----------|--------------|
-| **Ollama** | [Download](https://ollama.ai/download) |
-| **Python 3.10+** | [Windows](https://www.python.org/downloads/windows/) \| [Mac](https://www.python.org/downloads/mac-osx/) |
-
-⚡ **Pro Tip:** Install as **admin** and update `PATH`!  
-
-<img src="https://github.com/user-attachments/assets/a44cefb7-dfde-43ff-af6b-03dd425e12a9" width="400" />
+- Set up and run local LLMs using [Ollama](https://ollama.ai)
+- Compare model behavior to assess capabilities and trade-offs
+- Write scripts for summarization, theming, and lightweight AI-driven experiences
+- Explore agentic and automation scenarios without prior AI expertise
 
 ---
 
+## Prerequisites
 
-# 🏗️ Hands-On Exercises  
+To fully participate, please install the following software **before the session**:
 
-## 🏁 **Exercise 1: Running Your First Local LLM**  
+| Software     | Download Link |
+|--------------|----------------|
+| Ollama       | [Download](https://ollama.ai/download) |
+| Python 3.10+ | [Windows](https://www.python.org/downloads/windows/) &#124; [Mac](https://www.python.org/downloads/mac-osx/) |
 
-🔹 **Goal:** Download and run your first model, and interact with an LLM using the command line.  
+> **Note:** Install Python as an administrator and ensure it’s added to your system PATH.
 
-### **1️⃣ Pull & Run Your First Model**  
+---
+
+## Hands-On Exercises
+
+### Exercise 1: Running Your First Local LLM
+
+**Objective:** Install and interact with a lightweight local model via the command line.
+
 ```sh
 ollama run llama3.2:1b
 ```
 
-### **2️⃣ Interact with the Model in the Terminal**  
-Ask a question, such as "Is hotdog a sandwich?"
+Ask a few question such as:  
+`Is a hotdog a sandwich?`
 
-Be creative and ask it questions or chat with it.
-
-You now have the powers of a scaled down chatgpt running on your local computer.
-
-💡 **Tip:** Input `/bye` to exit the chat.
+> Type `/bye` to exit the session.
 
 ---
 
-## 💬 **Exercise 2: Build a Simple Web-Based Chatbot**  
+### Exercise 2: Build a Simple Web-Based Chatbot
 
-🔹 **Goal:** Create a basic **web interface** to interact with an LLM.  
+**Objective:** Create a basic chatbot using HTML and JavaScript, connected to Ollama's API.
 
-### 📌 What You’ll Do:  
-✅ Set up a **simple HTML & JavaScript** front-end  
-✅ Connect your chatbot to **Ollama's API**  
+Steps:
 
-### **1️⃣ Clone this repository**  
-```sh
-git clone https://github.com/AITrekker/ollama.git
-```
+1. Clone the sample project:  
+   ```sh
+   git clone https://github.com/AITrekker/ollama.git
+   ```
 
-### **2️⃣ Start a Temporary Web Server**  
-| OS | Command |
-|----|---------|
-| **Windows** | `python -m http.server 8000` |
-| **Mac** | `python3 -m http.server 8000` |
+2. Start a local web server:  
+   - Windows: `python -m http.server 8000`  
+   - Mac: `python3 -m http.server 8000`
 
-### **3️⃣ Open in Your Browser**  
-Go to **http://localhost:8000/single-llm.html** in your web browser.  
+3. Open your browser to:  
+   [http://localhost:8000/single-llm.html](http://localhost:8000/single-llm.html)
 
-Type your query in the search box and see the model respond.  
+4. Ask a question and watch the LLM return a response
 
 ---
 
-## 🔄 **Exercise 3: Compare Multiple LLMs in a Chatbot**  
+### Exercise 3: Compare Multiple LLMs
 
-🔹 **Goal:** Build a **more advanced chatbot** that compares multiple LLM responses side by side.  
+**Objective:** Build a chatbot that displays responses from multiple models side by side.
 
-📌 **What You’ll Do:**  
-✅ Query multiple LLMs **at once**  
-✅ Display responses **side by side**  
-✅ Analyze **differences in model outputs**  
+#### Considerations by Platform:
 
----
+- **Windows:** Limited RAM; prefer models between 1B–3B.
+- **Mac (M1/M2/M3/M4):** Unified memory allows for running larger models (7B–14B), ideally with 16GB+ RAM.
 
-### **1️⃣ Understanding LLM Sizes & System Limitations**  
+#### Suggested Models
 
-💡 **Not all LLMs are the same size!** Some require more memory and computing power, affecting performance.  
+| Model | Run Command |
+|-------|-------------|
+| llama3.2:1b | `ollama run llama3.2:1b` |
+| phi3:3.8b   | `ollama run phi3:3.8b` |
+| gemma2:2b   | `ollama run gemma2:2b` |
+| deepseek-r1:1.5b | `ollama run deepseek-r1:1.5b` |
 
-🔹 **Windows Users:**  
-- Windows laptops **lack unified memory** (which Apple Silicon uses to share RAM between CPU & GPU).  
-- Running **larger models (7B-14B)** can be **slow or impossible** due to memory limits.  
-- **Solution:** Use **smaller models (1B-3B)** that require less RAM.  
+Larger models (Mac only):
 
-🔹 **Mac Users:**  
-- Macs with **M1/M2/M3/M4 chips** can run **larger models** due to unified memory.  
-- If you have a Mac with **16GB+ RAM**, you can try **larger models (7B-14B)** for better results.  
+| Model | Run Command |
+|-------|-------------|
+| llama3.2:latest | `ollama run llama3.2:latest` |
+| phi4:14b        | `ollama run phi4:14b` |
+| gemma2:9b       | `ollama run gemma2:9b` |
+| deepseek-r1:7b  | `ollama run deepseek-r1:7b` |
 
----
+Next steps:
 
-### 🧠 **Choosing the Right Model**  
-
-#### 🔹 **Smaller, Lightweight Models (Best for Windows & Low-Memory Macs) -- Recommended**  
-
-| Model ID | Run Command |
-|----------|------------|
-| `llama3.2:1b` | `ollama run llama3.2:1b` |
-| `phi3` | `ollama run phi3:3.8b` |
-| `gemma2:2b` | `ollama run gemma2:2b` |
-| `deepseek-r1:1.5b` | `ollama run deepseek-r1:1.5b` |
-
-#### 🔹 **Larger, More Powerful Models (Best for Macs with 16GB+ RAM)**  
-
-| Model ID | Run Command |
-|----------|------------|
-| `llama3.2:latest` | `ollama run llama3.2:latest` |
-| `phi4` | `ollama run phi4:14b` |
-| `gemma2:9b` | `ollama run gemma2:9b` |
-| `deepseek-r1` | `ollama run deepseek-r1:7b` |
+- Download 4 models from above
+- Launch the multi-model chatbot: [http://localhost:8000/multiple-llm.html](http://localhost:8000/multiple-llm.html)
 
 ---
 
-### 2️⃣ Download 4 models 
-Download the 4 most appropriate models from the table above, based on the capabilites of your computer.  
+### Exercise 4: Thematic Analysis & Summarization
 
-### **3️⃣ Open in Your Browser**  
-Go to **http://localhost:8000/multiple-llm.html**  
+**Objective:** Use a local LLM to summarize and extract themes from a CEO AMA dataset.
 
-💡 **Tip:** Compare different models on various topics!  
+Steps:
+
+1. Run the summarization script:  
+   - Windows: `python summarize.py sample.csv`  
+   - Mac: `python3 summarize.py sample.csv`
+
+2. Open `output.csv` to view themes and summaries.
+
+3. To experiment, modify `LLM_NAME` in the script and rerun with other downloaded models.
+
+4. Try a few different prompts and compare the output of the different LLMs
+
+---
+
+## Additional Resources
+
+- [Explore Ollama Models](https://ollama.com/search)  
+- [Python Tutorial](https://docs.python.org/3/tutorial/)
 
 ---
 
-## 📊 **Exercise 4: AI-Powered Thematic Analysis & Summarization**  
+## Optional: Cleanup
 
-🔹 **Goal:** Use Python to **analyze themes** and **summarize discussions** from a recent AMA with a CEO.  
+To remove all downloaded models:
 
-📌 **What You’ll Do:**  
-✅ Use AI to **extract key topics**  
-✅ Use AI to **summarize**  
+- **Windows:**
+  ```powershell
+  ollama list | ForEach-Object { ollama rm $_.Split(" ")[0] }
+  ```
 
-### **1️⃣ Run the script**  
-
-(Windows) `python summarize.py sample.csv`
-
-(Mac) `python3 summarize.py sample.csv`
-
-### **2️⃣ View the output**  
-Open the file 'output.csv' to see the summary and theme of each sample question.
+- **Mac:**
+  ```bash
+  ollama list | awk '{print $1}' | xargs -I {} ollama rm {}
+  ```
 
 ---
----
 
-## 📚 Resources  
+## Contact
 
-📖 [Ollama Models](https://ollama.com/search)  
-🐍 [Python Basics for AI](https://docs.python.org/3/tutorial/)  
-
-
-### ✨ Cleanup
-Remove all local llms 
-
-(Windows) `ollama list | ForEach-Object { ollama rm $_.Split(" ")[0] }`
-
-(Mac) `ollama list | awk '{print $1}' | xargs -I {} ollama rm {}`
-## 📩 Contact  
-
-💡 **Questions?** Open an issue in the GitHub repository or reach out via **LinkedIn** https://www.linkedin.com/in/agupta11/
+For questions or support:  
+- Submit an issue on GitHub  
+- Connect on [LinkedIn](https://www.linkedin.com/in/agupta11/)
