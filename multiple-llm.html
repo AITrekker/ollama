@@ -20,6 +20,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    #header h2 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
     }
     #chatbox { 
       display: grid; 
@@ -54,6 +62,7 @@
 <body>
   <!-- Header with title and model selection drop-down -->
   <div id="header">
+    <div></div> <!-- Empty div for flexbox balance -->
     <h2>Multi-LLM Chatbot</h2>
     <div>
       <label for="modelSizeSelect">Model Size:</label>

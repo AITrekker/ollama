@@ -10,6 +10,34 @@
       margin: 20px; 
       text-align: center; 
     }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .model-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .model-selector label {
+      font-weight: bold;
+      color: #555;
+    }
+    .model-selector select {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    #pageTitle {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+    }
     input { 
       padding: 10px; 
       width: 80%; 
@@ -41,8 +69,17 @@
   </style>
 </head>
 <body>
-  <!-- Title indicates the single LLM in use -->
-  <h2>Single LLM Chatbot: llama3.2:1b</h2>
+  <!-- Header with model selection and title -->
+  <div class="header">
+    <div class="model-selector">
+      <label for="modelSelect">Model:</label>
+      <select id="modelSelect">
+        <option value="">Loading models...</option>
+      </select>
+    </div>
+    <h2 id="pageTitle">Single LLM Chatbot</h2>
+    <div></div> <!-- Empty div for flexbox balance -->
+  </div>
   
   <!-- Input box for user messages -->
   <input type="text" id="userInput" placeholder="Type a message and press Enter..." />
@@ -50,16 +87,74 @@
   <!-- Container for the single response panel -->
   <div id="chatbox">
     <div class="chat-container">
-      <h3>Response from llama3.2:1b</h3>
+      <h3 id="responseTitle">Select a model to start</h3>
       <pre id="response">Waiting for input...</pre>
     </div>
   </div>
   
   <script>
-    // Define the single LLM (first one from the original smallerModels list)
-    const model = { id: "llama3.2:1b", displayName: "llama3.2:1b" };
+    // Current selected model
+    let currentModel = null;
+    
+    // Fetch available models from Ollama API
+    async function fetchAvailableModels() {
+      try {
+        const response = await fetch("http://localhost:11434/api/tags");
+        const data = await response.json();
+        return data.models || [];
+      } catch (error) {
+        console.error("Error fetching models:", error);
+        return [];
+      }
+    }
+    
+    // Populate the model dropdown
+    async function populateModelDropdown() {
+      const modelSelect = document.getElementById("modelSelect");
+      const models = await fetchAvailableModels();
+      
+      modelSelect.innerHTML = "";
+      
+      if (models.length === 0) {
+        modelSelect.innerHTML = '<option value="">No models available</option>';
+        return;
+      }
+      
+      // Add models to dropdown
+      models.forEach(model => {
+        const option = document.createElement("option");
+        option.value = model.name;
+        option.textContent = model.name;
+        modelSelect.appendChild(option);
+      });
+      
+      // Set the first model as default
+      if (models.length > 0) {
+        currentModel = models[0].name;
+        modelSelect.value = currentModel;
+        updatePageTitle();
+      }
+    }
+    
+    // Update page title and response title based on selected model
+    function updatePageTitle() {
+      const pageTitle = document.getElementById("pageTitle");
+      const responseTitle = document.getElementById("responseTitle");
+      
+      if (currentModel) {
+        pageTitle.textContent = `Single LLM Chatbot: ${currentModel}`;
+        responseTitle.textContent = `Response from ${currentModel}`;
+        document.getElementById("response").textContent = "Waiting for input...";
+      }
+    }
+    
+    // Listen for model selection changes
+    document.getElementById("modelSelect").addEventListener("change", function(event) {
+      currentModel = event.target.value;
+      updatePageTitle();
+    });
 
-    // Listen for Enter key press in the input field.
+    // Listen for Enter key press in the input field
     document.getElementById("userInput").addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -67,27 +162,33 @@
       }
     });
   
-    // Send the user's message to the LLM.
+    // Send the user's message to the selected LLM
     async function sendMessage() {
+      if (!currentModel) {
+        document.getElementById("response").textContent = "Please select a model first.";
+        return;
+      }
+      
       const inputField = document.getElementById("userInput");
       const userMessage = inputField.value.trim();
       if (userMessage === "") return;
       
-      // Set the response area to "Loading..." while waiting for the response.
-      document.getElementById("response").innerText = "Loading...";
+      // Set the response area to "Loading..." while waiting for the response
+      document.getElementById("response").textContent = "Loading...";
       
-      // Clear the input field.
+      // Clear the input field
       inputField.value = "";
   
       try {
-        const response = await fetchResponse(model.id, userMessage);
-        document.getElementById("response").innerText = response;
+        const response = await fetchResponse(currentModel, userMessage);
+        document.getElementById("response").textContent = response;
       } catch (error) {
-        document.getElementById("response").innerText = "Error fetching response.";
+        document.getElementById("response").textContent = "Error fetching response.";
+        console.error("Error:", error);
       }
     }
   
-    // Fetch a response from the API for the given model and prompt.
+    // Fetch a response from the API for the given model and prompt
     async function fetchResponse(modelId, prompt) {
       const response = await fetch("http://localhost:11434/api/generate", {
         method: "POST",
@@ -99,9 +200,16 @@
         })
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       return data.response || "No response received.";
     }
+    
+    // Initialize the page by loading available models
+    populateModelDropdown();
   </script>
 </body>
 </html>
